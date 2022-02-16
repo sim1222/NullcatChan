@@ -16,15 +16,15 @@ export default class extends Module {
 
 	@autobind
 	private async mentionHook(msg: Message) {
-		if (msg.text && msg.text.includes('天気') && msg.text.includes('天気')) {
+		if (msg.text.includes('天気') || msg.text.includes('てんき')) {
 
 
 			let reqDate: number = 0;
-			if (msg.text.includes(`今日`)) {
+			if (msg.text.includes(`今日`) || msg.text.includes(`きょう`)) {
 				reqDate = 0;
-			} else if (msg.text.includes(`明日`)) {
+			} else if (msg.text.includes(`明日`) || msg.text.includes(`あした`)) {
 				reqDate = 1;
-			} else if (msg.text.includes(`明後日`)) {
+			} else if (msg.text.includes(`明後日`) || msg.text.includes(`あさって`)) {
 				reqDate = 2;
 			} else {
 				reqDate = 0;
