@@ -27,7 +27,7 @@ export default class extends Module {
 			} else if (msg.text.includes(`明後日`)) {
 				reqDate = 2;
 			} else {
-				return;
+				reqDate = 0;
 			}
 
 			let weatherlocation: number = 130010;
