@@ -10,7 +10,7 @@ type Config = {
 	mecab?: string;
 	mecabDic?: string;
 	memoryDir?: string;
-	weatherlocation?: string;
+	weatherlocation?: number;
 };
 
 const config = require('../config.json');

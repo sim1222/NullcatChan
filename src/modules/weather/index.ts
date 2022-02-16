@@ -18,27 +18,36 @@ export default class extends Module {
 	private async mentionHook(msg: Message) {
 		if (msg.text && msg.text.includes('天気') && msg.text.includes('天気')) {
 
-			let weatherlocation: any;
-			weatherlocation = '130000';
+
+			let reqDate: number = 0;
+			if (msg.text.includes(`今日`)) {
+				reqDate = 0;
+			} else if (msg.text.includes(`明日`)) {
+				reqDate = 1;
+			} else if (msg.text.includes(`明後日`)) {
+				reqDate = 2;
+			} else {
+				return;
+			}
+
+			let weatherlocation: number = 130010;
 			if (config.memoryDir) {
 				weatherlocation = config.weatherlocation;
 			}
 
-			const weather = await fetch(`https://www.jma.go.jp/bosai/forecast/data/forecast/${weatherlocation}.json`);
-			const weatherJson = await weather.json();
 
-			const todaydate = new Date(weatherJson[0].timeSeries[0].timeDefines[0]);
-			const todayweather = weatherJson[0].timeSeries[0].areas[1].weathers[0];
-			const todaytemphigh = weatherJson[0].timeSeries[2].areas[1].temps[1];
-			const todaytemplow = weatherJson[0].timeSeries[2].areas[1].temps[0];
+			const weatherAPI = await fetch(`https://weather.tsukumijima.net/api/forecast/city/${weatherlocation}`);
+			const weatherJson = await weatherAPI.json();
 
-			msg.reply(todaydate + 'の天気は\n' + todayweather + `\n` + '最高気温' + todaytemphigh + '℃、最低気温' + todaytemplow + `℃です！`, {
+			const date = new Date(weatherJson[0].forecasts[reqDate].date);
+			const title = weatherJson[0].title;
+			const weather = weatherJson[0].forecasts[reqDate].detail.weather;
+			const tempHigh = weatherJson[0].forecasts[reqDate].temperature.max.celsius;
+			const tempLow = weatherJson[0].forecasts[reqDate].temperature.min.celsius;
+
+			msg.reply(date + 'の' + title + 'は\n' + weather + `\n` + '最高気温' + tempHigh + '℃、最低気温' + tempLow + `℃です！`, {
 				immediate: true
 			});
-
-
-
-
 
 			return true;
 		} else {
