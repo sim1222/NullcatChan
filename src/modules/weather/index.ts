@@ -31,10 +31,8 @@ export default class extends Module {
 			}
 
 			let weatherlocation: number = 130010;
-			if (config.memoryDir) {
-				if (config.weatherlocation != null) {
-					weatherlocation = config.weatherlocation;
-				}
+			if (config.weatherlocation) {
+				weatherlocation = config.weatherlocation;
 			}
 
 
