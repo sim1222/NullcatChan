@@ -41,7 +41,7 @@ export default class extends Module {
 			const weatherAPI = await fetch(`https://weather.tsukumijima.net/api/forecast/city/${weatherlocation}`);
 			const weatherJson = await weatherAPI.json();
 
-			const date = new Date(weatherJson.forecasts[reqDate].date);
+			const date = weatherJson.forecasts[reqDate].dateLabel;
 			const title = weatherJson.title;
 			const weather = weatherJson.forecasts[reqDate].detail.weather;
 			const tempHigh = weatherJson.forecasts[reqDate].temperature.max.celsius;
