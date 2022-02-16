@@ -41,11 +41,11 @@ export default class extends Module {
 			const weatherAPI = await fetch(`https://weather.tsukumijima.net/api/forecast/city/${weatherlocation}`);
 			const weatherJson = await weatherAPI.json();
 
-			const date = new Date(weatherJson[0].forecasts[reqDate].date);
-			const title = weatherJson[0].title;
-			const weather = weatherJson[0].forecasts[reqDate].detail.weather;
-			const tempHigh = weatherJson[0].forecasts[reqDate].temperature.max.celsius;
-			const tempLow = weatherJson[0].forecasts[reqDate].temperature.min.celsius;
+			const date = new Date(weatherJson.forecasts[reqDate].date);
+			const title = weatherJson.title;
+			const weather = weatherJson.forecasts[reqDate].detail.weather;
+			const tempHigh = weatherJson.forecasts[reqDate].temperature.max.celsius;
+			const tempLow = weatherJson.forecasts[reqDate].temperature.min.celsius;
 
 			msg.reply(date + 'の' + title + 'は\n' + weather + `\n` + '最高気温' + tempHigh + '℃、最低気温' + tempLow + `℃です！`, {
 				immediate: true
