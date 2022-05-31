@@ -1,0 +1,7 @@
+config.json
+built
+node_modules
+memory.json
+font.ttf
+# Intelij-IDEA
+/.idea
